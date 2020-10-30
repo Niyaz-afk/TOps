@@ -1,6 +1,8 @@
 from django.db import models
 from datetime import date
 
+from django.urls import reverse
+
 
 class Category(models.Model):
     """Категории"""
@@ -36,6 +38,10 @@ class Actor(models.Model):
     image = models.ImageField("Изображение", upload_to='actors/')
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('actor_detail', kwargs={'slug': self.name})
+
     class Meta:
         verbose_name = "Актеры и режиссеры"
         verbose_name_plural = "Актеры и режиссеры"
@@ -64,6 +70,8 @@ class Movie(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse('movie_detail',kwargs={'slug': self.url})
 
     class Meta:
         verbose_name = 'Фильм'
